@@ -22,10 +22,11 @@ jobs:
 
       - name: Build and push Docker image
         run: |
+          REPOSITORY_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           docker buildx build \
             --platform linux/amd64 \
             --push \
-            -t ghcr.io/${{ github.repository_owner }}/my-express-app:latest .
+            -t ghcr.io/${{ REPOSITORY_OWNER }}/my-express-app:latest .
 
   deploy:
     needs: [build-and-push]
